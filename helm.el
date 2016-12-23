@@ -5516,6 +5516,16 @@ It may appear after first results popup in helm buffer."))
                   (helm-interpret-value helm-help-message))))))))
 (put 'helm-help 'helm-only t)
 
+(defun helm-version (&optional dont-display)
+  "Return and display the helm version.
+When DONT-DISPLAY is non nil, only return it."
+  (interactive)
+  (let* ((helm-version (pkg-info-package-version 'helm))
+        (helm-version (string-join (map 'list 'int-to-string helm-version) ".")))
+    (when (not dont-display)
+      (message "Helm version: %s" helm-version))
+    helm-version))
+
 (defun helm-toggle-truncate-line ()
   "Toggle `truncate-lines' value in `helm-buffer'"
   (interactive)
